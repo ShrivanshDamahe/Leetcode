@@ -26,20 +26,14 @@ public:
 private:
     bool checkGame(vector<vector<char>> game, char c) {
         for (int i = 0; i < 3; i++){
-            if (game[0][i] == c && game[1][i] == c && game[2][i] == c){
-                cout << "vertical";
+            if (game[0][i] == c && game[1][i] == c && game[2][i] == c)
                 return true;
-            }
-            else if (game[i][0] == c && game[i][1] == c && game[i][2] == c){
-                cout << "horizontal";
+            else if (game[i][0] == c && game[i][1] == c && game[i][2] == c)
                 return true;
-            }
         }
 
-        if (game[1][1] == c && ((game[0][0] == c && game[2][2] == c) || (game[0][2] == c && game[2][0] == c))){
-            cout << "diagonal";
+        if (game[1][1] == c && ((game[0][0] == c && game[2][2] == c) || (game[0][2] == c && game[2][0] == c)))
             return true;
-        }
         return false;
     }
     // Time complexity - O(1)
