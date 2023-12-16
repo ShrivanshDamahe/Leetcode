@@ -1,22 +1,21 @@
 class Solution {
 public:
     bool isPalindrome(string s) {
-        string temp, ans;
-        transform(s.begin(), s.end(), back_inserter(temp), ::tolower);
-        for (char itr : temp){
-            int num = static_cast<int> (itr);
-            if ((num >= 97 && num <= 122) || (num >= 48 && num <= 57))
-                ans += itr;
-        }
-
-        int i = 0, j = ans.size() - 1;
+        int i = 0, j = s.size() - 1;
         while (i < j){
-            if (ans[i] != ans[j])
+            if (isalnum(s[i]) == 0)
+                i++;
+            else if (isalnum(s[j]) == 0)
+                j--;
+            else if (tolower(s[i]) != tolower(s[j]))
                 return 0;
-            i++;
-            j--;
+            else {
+                i++;
+                j--;
+            }
+            
         }
         return 1;
     }
-    // Time complexity - O(n)
+    // Time complexity - O(n/2)
 };
