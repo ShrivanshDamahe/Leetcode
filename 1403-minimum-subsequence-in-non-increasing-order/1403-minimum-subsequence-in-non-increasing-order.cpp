@@ -3,17 +3,11 @@ public:
     vector<int> minSubsequence(vector<int>& nums) {
         vector<int> output;
         int total = 0;
-        for (int i = 0; i < nums.size() - 1; i++){
-            for (int j = i + 1; j < nums.size(); j++){
-                if (nums[i] < nums[j]){
-                    int temp = nums[i];
-                    nums[i] = nums[j];
-                    nums[j] = temp;
-                }
-            }
+
+        sort(nums.begin(), nums.end(), greater<int>());
+        for (int i = 0; i < nums.size(); i++){
             total += nums[i];
         }
-        total += nums[nums.size() - 1];
 
         int temp = 0;
         for (int i = 0; i < nums.size(); i++){
