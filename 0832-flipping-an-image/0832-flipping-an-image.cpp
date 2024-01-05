@@ -2,17 +2,18 @@ class Solution {
 public:
     vector<vector<int>> flipAndInvertImage(vector<vector<int>>& image) {
         for (auto &row : image){
-            reverse(row.begin(), row.end());
-            for (auto &element : row){
-                if (element == 1)
-                    element = 0;
-                else 
-                    element = 1;
+            int j = row.size() - 1;
+            for (int i = 0; i <= j; i++){
+                int temp = !row[i] ;
+                row[i] = !row[j];
+                row[j] = temp;
+                
+                j--;
             }
         }
 
         return image;
     }
-    // Time complexity - O(n^2)
+    // Time complexity - O(m * n)
     // Space complexity - O(1)
 };
