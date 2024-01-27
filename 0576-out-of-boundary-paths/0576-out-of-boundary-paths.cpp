@@ -1,34 +1,34 @@
 class Solution {
 public:
     int findPaths(int m, int n, int maxMove, int startRow, int startColumn) {
-        int MOD = 1000000007;
-        int ans = 0;
-        vector<vector<int>> dp(m, vector<int>(n, 0));
+        int ans = 0, M = 1000000007;
+
+        vector<vector<int>> dp(m, (vector<int> (n, 0)));
         dp[startRow][startColumn] = 1;
-        
-        for (int move = 1; move <= maxMove; move++) {
-            vector<vector<int>> temp(m, vector<int>(n, 0));
-            for (int i = 0; i < m; i++) {
-                for (int j = 0; j < n; j++) {
-                    if (dp[i][j] > 0) {
-                        if (i - 1 < 0) ans = (ans + dp[i][j]) % MOD;
-                        else temp[i - 1][j] = (temp[i - 1][j] + dp[i][j]) % MOD;
 
-                        if (i + 1 >= m) ans = (ans + dp[i][j]) % MOD;
-                        else temp[i + 1][j] = (temp[i + 1][j] + dp[i][j]) % MOD;
+        for (int i = 1; i <= maxMove; i++){
+            vector<vector<int>> temp(m, (vector<int> (n, 0)));
 
-                        if (j - 1 < 0) ans = (ans + dp[i][j]) % MOD;
-                        else temp[i][j - 1] = (temp[i][j - 1] + dp[i][j]) % MOD;
+            for (int j = 0; j < m; j++){
+                for (int k = 0; k < n; k++){
+                    if (j == 0)
+                        ans = (ans + dp[j][k]) % M;
+                    if (j == m - 1)
+                        ans = (ans + dp[j][k]) % M;
+                    if (k == 0)
+                        ans = (ans + dp[j][k]) % M;
+                    if (k == n - 1)
+                        ans = (ans + dp[j][k]) % M;
 
-                        if (j + 1 >= n) ans = (ans + dp[i][j]) % MOD;
-                        else temp[i][j + 1] = (temp[i][j + 1] + dp[i][j]) % MOD;
-                    }
+                    temp[j][k] = (((j > 0 ? dp[j - 1][k] : 0) + (j < m - 1 ? dp[j + 1][k] : 0)) % M + 
+                                  ((k > 0 ? dp[j][k - 1] : 0) + (k < n - 1 ? dp[j][k + 1] : 0)) % M) % M;
                 }
             }
+
             dp = temp;
         }
 
-        return ans;
+        return ans % M;
     }
     // Time complexity - O(m * n * maxMove)
     // Space complexity - O(m * n)
