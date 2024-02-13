@@ -2,17 +2,12 @@ class Solution {
 public:
     string firstPalindrome(vector<string>& words) {
         for (int i = 0; i < words.size(); i++){
-            int j = 0, k = words[i].length() - 1;
-            while (j < k){
-                if (words[i][j] != words[i][k])
+            for (int j = 0; j < words[i].length(); j++){
+                if (words[i][j] != words[i][words[i].length() - 1 - j])
                     break;
-                
-                j++;
-                k--;
+                else if (j == words[i].length() / 2)
+                    return words[i];
             }
-
-            if (j == k || j > k)
-                return words[i];
         }
 
         return "";
